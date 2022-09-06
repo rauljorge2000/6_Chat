@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <div class="divTitle">
+        <span>Chat</span>
+      <ion-icon name="log-out-outline" (click)="signOut()"></ion-icon>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<h1>Chat Room</h1>
+
+
+
+<div class="cDiv" #scrollMe style="overflow: scroll; height: xyz;">
+  <div class="lDiv" *ngFor="let l of mService.list">
+        
+    <div *ngIf="!l[4]">
+      <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
+                     'mLeft' : l[0] !== auth.auth.currentUser.displayName}">
+        <!-- Name -->
+         <p class="mP">{{l[0]}}</p>
+        <!-- Location -->
+        <p class="mP">({{l[3]}})</p>
+        <!-- Message -->
+        <p class="mSpan">{{l[1]}}</p>
+        <!-- Time -->
+        <!-- <span class="mP">{{l[2]}}</span> -->
+      </div>
+    </div>
+
+    <div *ngIf="l[4]">
+      <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
+                    'mLeft' : l[0] !== auth.auth.currentUser.displayName}">
+        <!-- Name -->
+        <p class="mP">{{l[0]}}</p>
+        <!-- Location -->
+        <p class="mP">({{l[3]}})</p>
+        <!-- Image -->
+        <img  src={{l[5]}} >
+        <!-- Time -->
+        <!-- <span class="mP">{{l[2]}}</span> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="iANDb">
+  <ion-icon size="large" name="camera" (click)="sendPicture()"></ion-icon>
+  <input type="text" name="message"
+        [(ngModel)]="message"
+        (keyup.enter)="sendMessage()"
+        placeholder="Write a message">
+  <button (click)="sendMessage()">Send</button>
+</div>
